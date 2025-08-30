@@ -46,7 +46,16 @@ public class AlarmTest {
         assertFalse(alarm.isAlarmOn());
     }
 
+    @Test
+    public void alarmShouldRemainOnEvenIfItReceivesNormalSensorValue() {
+        when(sensor.getSensorValue()).thenReturn(12D);
+        alarm.check();
+        assertTrue(alarm.isAlarmOn());
 
+        when(sensor.getSensorValue()).thenReturn(18D);
+        alarm.check();
+        assertTrue(alarm.isAlarmOn());
+    }
 
 
 
