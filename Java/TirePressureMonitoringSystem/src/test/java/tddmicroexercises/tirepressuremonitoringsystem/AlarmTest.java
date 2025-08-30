@@ -39,6 +39,13 @@ public class AlarmTest {
         assertTrue(alarm.isAlarmOn());
     }
 
+    @Test
+    public void shouldNotTurnOnAlarmWhenPressureIsNormal() {
+        when(sensor.getSensorValue()).thenReturn(18D);
+        alarm.check();
+        assertFalse(alarm.isAlarmOn());
+    }
+
 
 
 
