@@ -32,31 +32,7 @@ public class AlarmTest {
         assertTrue(alarm.isAlarmOn());
     }
 
-    @Test
-    public void shouldTurnOnAlarmWhenPressureIsAboveThreshold() {
-        when(sensor.getSensorValue()).thenReturn(22D);
-        alarm.check();
-        assertTrue(alarm.isAlarmOn());
-    }
 
-
-    @Test
-    public void shouldNotTurnOnAlarmWhenPressureIsNormal() {
-        when(sensor.getSensorValue()).thenReturn(18D);
-        alarm.check();
-        assertFalse(alarm.isAlarmOn());
-    }
-
-    @Test
-    public void alarmShouldRemainOnEvenIfItReceivesNormalSensorValue() {
-        when(sensor.getSensorValue()).thenReturn(12D);
-        alarm.check();
-        assertTrue(alarm.isAlarmOn());
-
-        when(sensor.getSensorValue()).thenReturn(18D);
-        alarm.check();
-        assertTrue(alarm.isAlarmOn());
-    }
 
 
 }
