@@ -11,6 +11,8 @@ public class TurnNumberSequence implements ITurnNumberGenerator<Integer>
 
     public static ITurnNumberGenerator<Integer> getINSTANCE() {
         if(INSTANCE == null) {
+            synchronized (TurnNumberSequence.class) {
+                if(INSTANCE == null) {
 
     @Override
     public Integer getNextTurnNumber()
