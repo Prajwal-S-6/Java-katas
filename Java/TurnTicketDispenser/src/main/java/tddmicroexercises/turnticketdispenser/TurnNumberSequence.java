@@ -8,7 +8,6 @@ public class TurnNumberSequence implements ITurnNumberGenerator<Integer>
 
     private TurnNumberSequence() {}
 
-
     public static ITurnNumberGenerator<Integer> getINSTANCE() {
         if(INSTANCE == null) {
             synchronized (TurnNumberSequence.class) {
