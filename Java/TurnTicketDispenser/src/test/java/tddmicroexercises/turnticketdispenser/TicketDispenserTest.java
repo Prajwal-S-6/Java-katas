@@ -30,6 +30,13 @@ class TicketDispenserTest {
         assertEquals(2, ticketDispenser.getTurnTicket().getTurnNumber());
     }
 
+    @Test
+    void shouldMaintainSequenceAcrossMultipleDispenser() {
+        MockTurnNumberSequence mockTurnNumberSequence = new MockTurnNumberSequence();
+        assertEquals(0, new TicketDispenser(mockTurnNumberSequence).getTurnTicket().getTurnNumber());
+        assertEquals(1, new TicketDispenser(mockTurnNumberSequence).getTurnTicket().getTurnNumber());
+        assertEquals(2, new TicketDispenser(mockTurnNumberSequence).getTurnTicket().getTurnNumber());
+    }
 
 
 
