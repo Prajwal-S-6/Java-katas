@@ -23,6 +23,13 @@ class TicketDispenserTest {
         assertEquals(0, ticket.getTurnNumber());
     }
 
+    @Test
+    void shouldReturnNextTurnNumber() {
+        ticketDispenser.getTurnTicket();
+        ticketDispenser.getTurnTicket();
+        assertEquals(2, ticketDispenser.getTurnTicket().getTurnNumber());
+    }
+
 
 
 
