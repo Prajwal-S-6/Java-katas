@@ -11,7 +11,7 @@ public class HtmlPagesConverter {
     private String filename;
     private Converter converter;
 
-    public HtmlPagesConverter(String filename, Converter converter) throws IOException {
+    public HtmlPagesConverter(String filename, Converter converter) {
         this.filename = filename;
         this.converter = converter;
     }
