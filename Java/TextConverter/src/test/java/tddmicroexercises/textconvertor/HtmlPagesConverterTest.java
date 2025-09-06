@@ -4,10 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,13 +15,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class HtmlPagesConverterTest {
 
-    HtmlTextConverter mockHtmlConverter;
+    BufferedReader mockReader;
     HtmlPagesConverter pagesConverter;
 
     @BeforeEach
     void setUp() {
-        mockHtmlConverter = mock(HtmlTextConverter.class);
-        pagesConverter = new HtmlPagesConverter("foo", mockHtmlConverter);
+        mockReader = mock(BufferedReader.class);
+        pagesConverter = new HtmlPagesConverter("foo", mockReader);
     }
 
     @Test
@@ -33,13 +30,44 @@ public class HtmlPagesConverterTest {
     }
 
     @Test
-    public void shouldReturnEmptyStringWhenPageisEmpty() throws IOException {
-        when(mockHtmlConverter.convert(0)).thenReturn("");
-        when(mockHtmlConverter.getReader()).thenReturn(mock(BufferedReader.class));
+    public void shouldReturnEmptyStringWhenPageIsEmpty() throws IOException {
+        when(mockReader.readLine()).thenReturn(null);
 
-        assertEquals("", pagesConverter.getHtmlPage(0));
-        verify(mockHtmlConverter, times(1)).convert(0);
+        assertEquals("", pagesConverter.getHtmlPage());
 
     }
+
+    @Test
+    public void shouldReturnHtmlConvertedString() throws IOException {
+        when(mockReader.readLine()).thenReturn("line1").thenReturn("line2").thenReturn(null);
+
+        String htmlPage = pagesConverter.getHtmlPage();
+
+        String expectedString = "line1<br />line2<br />";
+        assertEquals(expectedString, htmlPage);
+    }
+
+    @Test
+    public void shouldReturnHtmlConvertedStringAfterEscapingCharacters() throws IOException {
+        when(mockReader.readLine()).thenReturn("line1", "line2&", null);
+
+        String htmlPage = pagesConverter.getHtmlPage();
+
+        String expectedString = "line1<br />line2&amp;<br />";
+        assertEquals(expectedString, htmlPage);
+    }
+
+    @Test
+    public void shouldReturnHtmlConvertedStringBeforePageBreak() throws IOException {
+        when(mockReader.readLine()).thenReturn("'line1'", "line2&", "<line3>", "PAGE_BREAK", "line4", null);
+
+        String htmlPage = pagesConverter.getHtmlPage();
+
+        String expectedString = "&quot;line1&quot;<br />line2&amp;<br />&lt;line3&gt;<br />";
+        assertEquals(expectedString, htmlPage);
+    }
+
+
+
 
 }
