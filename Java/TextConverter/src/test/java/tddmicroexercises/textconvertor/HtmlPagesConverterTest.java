@@ -2,8 +2,7 @@ package tddmicroexercises.textconvertor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -36,6 +35,10 @@ public class HtmlPagesConverterTest {
     @Test
     public void shouldReturnEmptyStringWhenPageisEmpty() throws IOException {
         when(mockHtmlConverter.convert(0)).thenReturn("");
+        when(mockHtmlConverter.getReader()).thenReturn(mock(BufferedReader.class));
+
+        assertEquals("", pagesConverter.getHtmlPage(0));
+        verify(mockHtmlConverter, times(1)).convert(0);
 
     }
 
