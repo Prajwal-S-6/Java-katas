@@ -3,45 +3,43 @@ package tddmicroexercises.textconvertor;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HtmlPagesConverter {
 
     private String filename;
-    private Converter converter;
+    private BufferedReader reader;
 
-    public HtmlPagesConverter(String filename, Converter converter) {
+    public HtmlPagesConverter(String filename, Reader reader) {
         this.filename = filename;
-        this.converter = converter;
+        this.reader = (BufferedReader) reader;
     }
 
-    private List<Integer> getPageBreaks() throws IOException {
-        List<Integer> breaks = new ArrayList<>();
-        breaks.add(0);
-        BufferedReader reader = (BufferedReader) converter.getReader();
-        int cumulativeCharCount = 0;
-        String line = reader.readLine();
-        while (line != null)
-        {
-            cumulativeCharCount += line.length() + 1; // add one for the newline
-            if (line.contains("PAGE_BREAK")) {
-                int page_break_position = cumulativeCharCount;
-                breaks.add(page_break_position);
-            }
-            line = reader.readLine();
-        }
-        reader.close();
-        return breaks;
-    }
-
-    public String getHtmlPage(int page) throws IOException {
-       int pagesToSkip = getPageBreaks().get(page);
-       return converter.convert(pagesToSkip);
+    public String getHtmlPage() throws IOException {
+       return convert();
     }
 
     public String getFilename() {
         return this.filename;
+    }
+
+    public String convert() throws IOException {
+        StringBuffer htmlPage = new StringBuffer();
+        String line = reader.readLine();
+        while (line != null)
+        {
+            if (line.contains("PAGE_BREAK")) {
+                break;
+            }
+            htmlPage.append(StringEscapeUtils.escapeHtml(line));
+            htmlPage.append("<br />");
+
+            line = reader.readLine();
+        }
+        reader.close();
+        return htmlPage.toString();
     }
     
 }
