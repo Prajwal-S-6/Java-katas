@@ -17,9 +17,9 @@ public class Parrot {
     public static Parrot createParrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
         Parrot parrot;
         switch (type) {
-            case EUROPEAN -> parrot = new EuropeanParrot(type, numberOfCoconuts, voltage, isNailed);
-            case AFRICAN -> parrot = new AfricanParrot(type, numberOfCoconuts, voltage, isNailed);
-            case NORWEGIAN_BLUE -> parrot = new NorwegianBlueParrot(type, numberOfCoconuts, voltage, isNailed);
+            case EUROPEAN -> parrot = new EuropeanParrot(numberOfCoconuts, voltage, isNailed);
+            case AFRICAN -> parrot = new AfricanParrot(numberOfCoconuts, voltage, isNailed);
+            case NORWEGIAN_BLUE -> parrot = new NorwegianBlueParrot(numberOfCoconuts, voltage, isNailed);
             default -> throw new IllegalArgumentException("Invalid Parrot type");
         };
         return parrot;
