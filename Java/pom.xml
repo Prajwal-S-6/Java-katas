@@ -4,8 +4,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github.emilybache</groupId>
-	<artifactId>racing-car-katas</artifactId>
+	<groupId>com.java.katas</groupId>
+	<artifactId>java-katas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -33,6 +33,7 @@
 		<module>TextConverter</module>
 		<module>TirePressureMonitoringSystem</module>
 		<module>TurnTicketDispenser</module>
-	</modules>
+        <module>ParrotRefactoringKata</module>
+    </modules>
 
 </project>

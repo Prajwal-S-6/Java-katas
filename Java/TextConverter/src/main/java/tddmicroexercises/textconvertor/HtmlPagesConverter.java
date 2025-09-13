@@ -9,8 +9,9 @@ import java.util.List;
 
 public class HtmlPagesConverter {
 
-    private String filename;
-    private BufferedReader reader;
+    private final String filename;
+    private final BufferedReader reader;
+
 
     public HtmlPagesConverter(String filename, Reader reader) {
         this.filename = filename;
@@ -26,8 +27,9 @@ public class HtmlPagesConverter {
     }
 
     public String convert() throws IOException {
-        StringBuffer htmlPage = new StringBuffer();
+
         String line = reader.readLine();
+        StringBuilder htmlPage = new StringBuilder();
         while (line != null)
         {
             if (line.contains("PAGE_BREAK")) {
