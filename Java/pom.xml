@@ -33,7 +33,7 @@
 		<module>TextConverter</module>
 		<module>TirePressureMonitoringSystem</module>
 		<module>TurnTicketDispenser</module>
-        <module>ParentRefactoringKata</module>
+        <module>ParrotRefactoringKata</module>
     </modules>
 
 </project>

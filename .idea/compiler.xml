@@ -7,15 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="TirePressureMonitoringSystem" />
+        <module name="ParrotRefactoringKata" />
+        <module name="Leaderboard" />
         <module name="TelemetrySystem" />
         <module name="TextConverter" />
-        <module name="Leaderboard" />
         <module name="TurnTicketDispenser" />
-        <module name="ParentRefactoringKata" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ParrotRefactoringKata" target="23" />
-    </bytecodeTargetLevel>
   </component>
 </project>
