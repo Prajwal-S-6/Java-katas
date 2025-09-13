@@ -15,7 +15,14 @@ public class Parrot {
     }
 
     public static Parrot createParrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
-        return new Parrot(type, numberOfCoconuts, voltage, isNailed);
+        Parrot parrot;
+        switch (type) {
+            case EUROPEAN -> parrot = new Parrot(type, numberOfCoconuts, voltage, isNailed);
+            case AFRICAN -> parrot = new Parrot(type, numberOfCoconuts, voltage, isNailed);
+            case NORWEGIAN_BLUE -> parrot = new Parrot(type, numberOfCoconuts, voltage, isNailed);
+            default -> throw new IllegalArgumentException("Invalid Parrot type");
+        };
+        return parrot;
     }
 
     public double getSpeed() {
