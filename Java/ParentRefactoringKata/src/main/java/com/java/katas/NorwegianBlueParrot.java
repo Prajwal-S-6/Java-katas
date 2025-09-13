@@ -2,8 +2,8 @@ package com.java.katas;
 
 public class NorwegianBlueParrot extends Parrot {
 
-    public NorwegianBlueParrot(int numberOfCoconuts, double voltage, boolean isNailed) {
-        super(numberOfCoconuts, voltage, isNailed);
+    public NorwegianBlueParrot(double voltage, boolean isNailed) {
+        super(voltage, isNailed);
     }
 
     @Override
