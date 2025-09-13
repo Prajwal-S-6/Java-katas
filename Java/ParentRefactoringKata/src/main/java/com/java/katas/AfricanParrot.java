@@ -1,8 +1,7 @@
 package com.java.katas;
 
-import static com.java.katas.ParrotTypeEnum.EUROPEAN;
-
 public class AfricanParrot extends Parrot {
+
     public AfricanParrot(int numberOfCoconuts, double voltage, boolean isNailed) {
         super(ParrotTypeEnum.AFRICAN, numberOfCoconuts, voltage, isNailed);
     }
