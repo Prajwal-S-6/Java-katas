@@ -2,8 +2,8 @@ package com.java.katas;
 
 public class EuropeanParrot extends Parrot {
 
-    public EuropeanParrot(double voltage, boolean isNailed) {
-        super(voltage, isNailed);
+    public EuropeanParrot() {
+        super();
     }
 
     @Override
