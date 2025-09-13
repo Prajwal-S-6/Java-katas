@@ -6,7 +6,7 @@ public abstract class Parrot {
     protected final double voltage;
     protected final boolean isNailed;
 
-    public Parrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
+    public Parrot(int numberOfCoconuts, double voltage, boolean isNailed) {
         this.numberOfCoconuts = numberOfCoconuts;
         this.voltage = voltage;
         this.isNailed = isNailed;
