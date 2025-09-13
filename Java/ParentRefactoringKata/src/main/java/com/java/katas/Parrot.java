@@ -7,7 +7,7 @@ public class Parrot {
     private final double voltage;
     private final boolean isNailed;
 
-    private Parrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
+    public Parrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
         this.type = type;
         this.numberOfCoconuts = numberOfCoconuts;
         this.voltage = voltage;
@@ -17,9 +17,9 @@ public class Parrot {
     public static Parrot createParrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
         Parrot parrot;
         switch (type) {
-            case EUROPEAN -> parrot = new Parrot(type, numberOfCoconuts, voltage, isNailed);
-            case AFRICAN -> parrot = new Parrot(type, numberOfCoconuts, voltage, isNailed);
-            case NORWEGIAN_BLUE -> parrot = new Parrot(type, numberOfCoconuts, voltage, isNailed);
+            case EUROPEAN -> parrot = new EuropeanParrot(type, numberOfCoconuts, voltage, isNailed);
+            case AFRICAN -> parrot = new AfricanParrot(type, numberOfCoconuts, voltage, isNailed);
+            case NORWEGIAN_BLUE -> parrot = new NorwegianBlueParrot(type, numberOfCoconuts, voltage, isNailed);
             default -> throw new IllegalArgumentException("Invalid Parrot type");
         };
         return parrot;
