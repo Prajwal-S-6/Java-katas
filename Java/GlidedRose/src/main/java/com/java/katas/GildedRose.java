@@ -22,6 +22,7 @@ class GildedRose {
             reduceSellInForNonSulfurusItem(i);
 
             if (items[i].sellIn < 0) {
+                increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
 
                 if (isNotAgedBrieItem) {
                     if (isNotBackstageItem) {
@@ -30,8 +31,6 @@ class GildedRose {
                         reduceQualityToZeroForBackStageItem(i);
                     }
 
-                } else {
-                    increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
                 }
             } else {
                 if (items[i].name.equals("Conjured Mana Cake")) {
