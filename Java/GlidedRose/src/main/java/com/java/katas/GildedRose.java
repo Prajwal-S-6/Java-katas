@@ -9,7 +9,7 @@ class GildedRose {
 
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
-            reduceQualityIfNotAgedBrieBackstageSulfurusAndLessThanZero(i);
+            reduceQualityIfNotAgedBrieAndBackstageAndSulfurusAndNotLessThanZero(i);
             increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
             increaseQualityForBackstageItemBasedOnSellIn(i);
             reduceSellInForNonSulfurusItem(i);
@@ -45,7 +45,7 @@ class GildedRose {
         }
     }
 
-    private void reduceQualityIfNotAgedBrieBackstageSulfurusAndLessThanZero(int i) {
+    private void reduceQualityIfNotAgedBrieAndBackstageAndSulfurusAndNotLessThanZero(int i) {
         if (items[i].quality > 0 && !isSulfurus(i) && !isAgedBrie(i) && !isBackstage(i)) {
             items[i].quality = items[i].quality - 1;
         }
@@ -66,7 +66,7 @@ class GildedRose {
             increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
             reduceQualityToZeroForBackStageItem(i);
         }
-        reduceQualityIfNotAgedBrieBackstageSulfurusAndLessThanZero(i);
+        reduceQualityIfNotAgedBrieAndBackstageAndSulfurusAndNotLessThanZero(i);
     }
 
     private void reduceQualityToZeroForBackStageItem(int i) {
