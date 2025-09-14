@@ -27,9 +27,9 @@ class GildedRose {
                 if (isNotAgedBrieItem) {
                     if (isNotBackstageItem) {
                         reduceQualityForNonSulfurusItem(i);
-                    } else {
-                        reduceQualityToZeroForBackStageItem(i);
                     }
+
+                    reduceQualityToZeroForBackStageItem(i);
 
                 }
             } else {
@@ -49,7 +49,9 @@ class GildedRose {
     }
 
     private void reduceQualityToZeroForBackStageItem(int i) {
-        items[i].quality = items[i].quality - items[i].quality;
+        if(isBackstage(i)) {
+            items[i].quality = items[i].quality - items[i].quality;
+        }
     }
 
     private void increaseQualityForBackstageItemBasedOnSellIn(int i) {
