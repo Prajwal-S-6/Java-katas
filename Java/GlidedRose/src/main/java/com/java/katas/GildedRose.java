@@ -12,20 +12,10 @@ class GildedRose {
             reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
             increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
             increaseQualityForBackstageItemBasedOnSellIn(i);
-
             reduceSellInForNonSulfurusItem(i);
         }
     }
 
-    private void handleWhenSellInIsLessThanZero(int i) {
-        if (items[i].sellIn < 0) {
-            increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
-            reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
-            reduceQualityToZeroForBackStageItem(i);
-        } else {
-            reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
-        }
-    }
 
     private boolean isBackstage(int i) {
         return items[i].name.equals("Backstage passes to a TAFKAL80ETC concert");
@@ -35,11 +25,6 @@ class GildedRose {
         return items[i].name.equals("Aged Brie");
     }
 
-    private void reduceQualityToZeroForBackStageItem(int i) {
-        if(isBackstage(i)) {
-            items[i].quality = items[i].quality - items[i].quality;
-        }
-    }
 
     private void increaseQualityForBackstageItemBasedOnSellIn(int i) {
         if (isBackstage(i)) {
@@ -73,7 +58,20 @@ class GildedRose {
     private void reduceSellInForNonSulfurusItem(int i) {
         if (!isSulfurus(i)) {
             items[i].sellIn = items[i].sellIn - 1;
+            handleWhenSellInWhenLessThanZero(i);
         }
-        handleWhenSellInIsLessThanZero(i);
+    }
+    private void handleWhenSellInWhenLessThanZero(int i) {
+        if (items[i].sellIn < 0) {
+            increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
+            reduceQualityToZeroForBackStageItem(i);
+        }
+        reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
+    }
+
+    private void reduceQualityToZeroForBackStageItem(int i) {
+        if(isBackstage(i)) {
+            items[i].quality = items[i].quality - items[i].quality;
+        }
     }
 }
