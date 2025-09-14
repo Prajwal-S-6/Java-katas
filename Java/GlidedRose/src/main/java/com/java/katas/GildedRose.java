@@ -18,13 +18,7 @@ class GildedRose {
                     items[i].quality = items[i].quality + 1;
 
                     if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].sellIn < 11) {
-                            increaseQualityNotMoreThan50(i);
-                        }
-
-                        if (items[i].sellIn < 6) {
-                            increaseQualityNotMoreThan50(i);
-                        }
+                        increseQualityForBackstageItemBasedOnSellIn(i);
                     }
                 }
             }
@@ -49,6 +43,15 @@ class GildedRose {
         }
     }
 
+    private void increseQualityForBackstageItemBasedOnSellIn(int i) {
+        if (items[i].sellIn < 11) {
+            increaseQualityNotMoreThan50(i);
+        }
+
+        if (items[i].sellIn < 6) {
+            increaseQualityNotMoreThan50(i);
+        }
+    }
 
 
     private void increaseQualityNotMoreThan50(int i) {
