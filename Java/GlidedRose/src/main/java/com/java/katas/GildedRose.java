@@ -13,7 +13,7 @@ class GildedRose {
             boolean isNotAgedBrieItem = !isAgedBrie(i);
             if (isNotAgedBrieItem
                     && isNotBackstageItem) {
-                reduceQualityForNonSulfurusItem(i);
+                reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
             }
             increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
             increaseQualityForBackstageItemBasedOnSellIn(i);
@@ -25,7 +25,7 @@ class GildedRose {
 
                 if (isNotAgedBrieItem) {
                     if (isNotBackstageItem) {
-                        reduceQualityForNonSulfurusItem(i);
+                        reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
                     }
 
                     reduceQualityToZeroForBackStageItem(i);
@@ -33,7 +33,7 @@ class GildedRose {
                 }
             } else {
                 if (items[i].name.equals("Conjured Mana Cake")) {
-                    reduceQualityForNonSulfurusItem(i);
+                    reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
                 }
             }
         }
@@ -72,7 +72,7 @@ class GildedRose {
         }
     }
 
-    private void reduceQualityForNonSulfurusItem(int i) {
+    private void reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(int i) {
         if (items[i].quality > 0 && !items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
             items[i].quality = items[i].quality - 1;
         }
