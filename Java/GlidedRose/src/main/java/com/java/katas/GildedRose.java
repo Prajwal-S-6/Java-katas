@@ -40,7 +40,7 @@ class GildedRose {
 
 
     private void increaseQualityNotMoreThan50ForAgedBrieOrBackstage(int i) {
-        if ((isAgedBrie(i) || isBackstage(i)) && items[i].quality < 50) {
+        if ((isAgedBrie(i) || isBackstage(i)) && items[i].quality < 50 && !isSulfurus(i)) {
             items[i].quality = items[i].quality + 1;
         }
     }
