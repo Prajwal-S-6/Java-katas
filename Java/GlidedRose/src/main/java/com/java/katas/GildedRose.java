@@ -11,10 +11,7 @@ class GildedRose {
         for (int i = 0; i < items.length; i++) {
             boolean isNotBackstageItem = !isBackstage(i);
             boolean isNotAgedBrieItem = !isAgedBrie(i);
-            if (isNotAgedBrieItem
-                    && isNotBackstageItem) {
-                reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
-            }
+            reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
             increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
             increaseQualityForBackstageItemBasedOnSellIn(i);
 
@@ -73,13 +70,17 @@ class GildedRose {
     }
 
     private void reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(int i) {
-        if (items[i].quality > 0 && !items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+        if (items[i].quality > 0 && !isSulfurus(i) && !isAgedBrie(i) && !isBackstage(i)) {
             items[i].quality = items[i].quality - 1;
         }
     }
 
+    private boolean isSulfurus(int i) {
+        return items[i].name.equals("Sulfuras, Hand of Ragnaros");
+    }
+
     private void reduceSellInForNonSulfurusItem(int i) {
-        if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+        if (!isSulfurus(i)) {
             items[i].sellIn = items[i].sellIn - 1;
         }
     }
