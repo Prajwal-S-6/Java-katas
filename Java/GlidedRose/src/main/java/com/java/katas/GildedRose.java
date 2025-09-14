@@ -42,8 +42,8 @@ class GildedRose {
                     increaseQualityNotMoreThan50(i);
                 }
             } else {
-                if (items[i].name.equals("Conjured Mana Cake") && items[i].quality > 0) {
-                    items[i].quality = items[i].quality - 1;
+                if (items[i].name.equals("Conjured Mana Cake")) {
+                    reduceQualityForNonSulfurusItem(i);
                 }
             }
         }
