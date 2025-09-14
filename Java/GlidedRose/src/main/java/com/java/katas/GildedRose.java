@@ -14,11 +14,8 @@ class GildedRose {
             if (isNotAgedBrieAndBackstageItem) {
                 reduceQualityForNonSulfurusItem(i);
             } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
-
-                    increaseQualityForBackstageItemBasedOnSellIn(i);
-                }
+                increaseQualityNotMoreThan50(i);
+                increaseQualityForBackstageItemBasedOnSellIn(i);
             }
 
             reduceSellInForNonSulfurusItem(i);
