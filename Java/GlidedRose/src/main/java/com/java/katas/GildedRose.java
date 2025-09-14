@@ -15,7 +15,7 @@ class GildedRose {
                     && isNotBackstageItem) {
                 reduceQualityForNonSulfurusItem(i);
             } else {
-                increaseQualityNotMoreThan50(i);
+                increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
                 increaseQualityForBackstageItemBasedOnSellIn(i);
             }
 
@@ -31,7 +31,7 @@ class GildedRose {
                     }
 
                 } else {
-                    increaseQualityNotMoreThan50(i);
+                    increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
                 }
             } else {
                 if (items[i].name.equals("Conjured Mana Cake")) {
@@ -56,18 +56,18 @@ class GildedRose {
     private void increaseQualityForBackstageItemBasedOnSellIn(int i) {
         if (isBackstage(i)) {
             if (items[i].sellIn < 11) {
-                increaseQualityNotMoreThan50(i);
+                increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
             }
 
             if (items[i].sellIn < 6) {
-                increaseQualityNotMoreThan50(i);
+                increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
             }
         }
     }
 
 
-    private void increaseQualityNotMoreThan50(int i) {
-        if (items[i].quality < 50) {
+    private void increaseQualityNotMoreThan50ForAgedBrieOrBackstage(int i) {
+        if ((isAgedBrie(i) || isBackstage(i)) && items[i].quality < 50) {
             items[i].quality = items[i].quality + 1;
         }
     }
