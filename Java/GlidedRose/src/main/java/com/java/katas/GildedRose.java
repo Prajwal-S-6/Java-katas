@@ -29,6 +29,10 @@ class GildedRose {
         return items[i].name.equals("Sulfuras, Hand of Ragnaros");
     }
 
+    private boolean isConjured(int i) {
+        return items[i].name.equals("Conjured Mana Cake");
+    }
+
     private void increaseQualityForBackstageItemBasedOnSellIn(int i) {
         if (isBackstage(i)) {
             if (items[i].sellIn < 11) {
@@ -62,9 +66,9 @@ class GildedRose {
     private void handleWhenSellInWhenLessThanZero(int i) {
         if (items[i].sellIn < 0) {
             increaseQualityNotMoreThan50ForAgedBrieOrBackstageNotSulfurusItem(i);
+            reduceQualityIfMoreThanZeroAndNotAgedBrieBackstageSulfurusItem(i);
             reduceQualityToZeroForBackStageItem(i);
         }
-        reduceQualityIfMoreThanZeroAndNotAgedBrieBackstageSulfurusItem(i);
     }
 
     private void reduceQualityToZeroForBackStageItem(int i) {

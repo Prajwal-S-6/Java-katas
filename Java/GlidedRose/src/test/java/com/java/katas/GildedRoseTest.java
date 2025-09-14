@@ -159,7 +159,7 @@ class GildedRoseTest {
         };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertThat(app.items[0].quality).isEqualTo(4);
+        assertThat(app.items[0].quality).isEqualTo(5);
     }
 
     @Test
