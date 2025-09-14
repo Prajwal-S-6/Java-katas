@@ -14,14 +14,17 @@ class GildedRose {
             increaseQualityForBackstageItemBasedOnSellIn(i);
             reduceSellInForNonSulfurusItem(i);
 
-            if (items[i].sellIn < 0) {
-                increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
+            handleWhenSellInIsLessThanZero(i);
+        }
+    }
 
-                reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
-                reduceQualityToZeroForBackStageItem(i);
-            } else {
-                reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
-            }
+    private void handleWhenSellInIsLessThanZero(int i) {
+        if (items[i].sellIn < 0) {
+            increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
+            reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
+            reduceQualityToZeroForBackStageItem(i);
+        } else {
+            reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
         }
     }
 
