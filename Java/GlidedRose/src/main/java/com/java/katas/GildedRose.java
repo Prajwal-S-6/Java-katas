@@ -1,6 +1,8 @@
 package com.java.katas;
 
 class GildedRose {
+    private static final int MAX_QUALITY = 50;
+    private static final int MIN_QUALITY = 0;
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -8,72 +10,77 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            reduceQualityIfMoreThanZeroAndNotAgedBrieBackstageSulfurusItem(i);
-            increaseQualityNotMoreThan50ForAgedBrieOrBackstageNotSulfurusItem(i);
-            increaseQualityForBackstageItemBasedOnSellIn(i);
-            reduceSellInForNonSulfurusItem(i);
+        for (Item item : items) {
+            if(isSulfurus(item)) continue;  //do nothing
+
+            updateItemQuality(item);
+            reduceSellIn(item);
+            handleExpiredItem(item);
         }
     }
 
 
-    private boolean isBackstage(int i) {
-        return items[i].name.equals("Backstage passes to a TAFKAL80ETC concert");
+    private static void updateItemQuality(Item item) {
+        if(isAgedBrie(item)) {
+            increaseQualityIfNotMaximum(item);
+        } else if (isBackStageProcess(item)) {
+            increaseQualityIfNotMaximum(item);
+            handleQualityForBackstageProcessBasedOnSellIn(item);
+        } else {
+            reduceQualityIfNotMinimum(item);
+        }
     }
 
-    private boolean isAgedBrie(int i) {
-        return items[i].name.equals("Aged Brie");
+    private static void handleQualityForBackstageProcessBasedOnSellIn(Item item) {
+        if (item.sellIn < 11) {
+            increaseQualityIfNotMaximum(item);
+        }
+
+        if (item.sellIn < 6) {
+            increaseQualityIfNotMaximum(item);
+        }
     }
 
-    private boolean isSulfurus(int i) {
-        return items[i].name.equals("Sulfuras, Hand of Ragnaros");
+    private static void reduceSellIn(Item item) {
+        item.sellIn = item.sellIn - 1;
     }
 
-    private boolean isConjured(int i) {
-        return items[i].name.equals("Conjured Mana Cake");
-    }
-
-    private void increaseQualityForBackstageItemBasedOnSellIn(int i) {
-        if (isBackstage(i)) {
-            if (items[i].sellIn < 11) {
-                increaseQualityNotMoreThan50ForAgedBrieOrBackstageNotSulfurusItem(i);
+    private static void handleExpiredItem(Item item) {
+        if (item.sellIn < 0) {
+            if(isAgedBrie(item)) {
+                increaseQualityIfNotMaximum(item);
+            } else {
+                if(isBackStageProcess(item)) {
+                    item.quality = MIN_QUALITY;
+                } else {
+                    reduceQualityIfNotMinimum(item);
+                }
             }
-
-            if (items[i].sellIn < 6) {
-                increaseQualityNotMoreThan50ForAgedBrieOrBackstageNotSulfurusItem(i);
-            }
         }
     }
 
-    private void increaseQualityNotMoreThan50ForAgedBrieOrBackstageNotSulfurusItem(int i) {
-        if (items[i].quality < 50 && (isAgedBrie(i) || isBackstage(i)) && !isSulfurus(i)) {
-            items[i].quality = items[i].quality + 1;
+    private static void reduceQualityIfNotMinimum(Item item) {
+        if (item.quality > MIN_QUALITY) {
+            item.quality = item.quality - 1;
         }
     }
 
-    private void reduceQualityIfMoreThanZeroAndNotAgedBrieBackstageSulfurusItem(int i) {
-        if (items[i].quality > 0 && !(isAgedBrie(i) || isBackstage(i) || isSulfurus(i))) {
-            items[i].quality = items[i].quality - 1;
+    private static void increaseQualityIfNotMaximum(Item item) {
+        if (item.quality < MAX_QUALITY)
+        {
+            item.quality = item.quality + 1;
         }
     }
 
-    private void reduceSellInForNonSulfurusItem(int i) {
-        if (!isSulfurus(i)) {
-            items[i].sellIn = items[i].sellIn - 1;
-            handleWhenSellInWhenLessThanZero(i);
-        }
-    }
-    private void handleWhenSellInWhenLessThanZero(int i) {
-        if (items[i].sellIn < 0) {
-            increaseQualityNotMoreThan50ForAgedBrieOrBackstageNotSulfurusItem(i);
-            reduceQualityIfMoreThanZeroAndNotAgedBrieBackstageSulfurusItem(i);
-            reduceQualityToZeroForBackStageItem(i);
-        }
+    private static boolean isSulfurus(Item item) {
+        return item.name.equals("Sulfuras, Hand of Ragnaros");
     }
 
-    private void reduceQualityToZeroForBackStageItem(int i) {
-        if(isBackstage(i)) {
-            items[i].quality = items[i].quality - items[i].quality;
-        }
+    private static boolean isBackStageProcess(Item item) {
+        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
+    }
+
+    private static boolean isAgedBrie(Item item) {
+        return item.name.equals("Aged Brie");
     }
 }
