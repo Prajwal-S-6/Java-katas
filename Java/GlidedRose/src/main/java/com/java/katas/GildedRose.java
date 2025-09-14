@@ -11,23 +11,17 @@ class GildedRose {
         for (int i = 0; i < items.length; i++) {
             boolean isNotBackstageItem = !isBackstage(i);
             boolean isNotAgedBrieItem = !isAgedBrie(i);
+
             reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
             increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
             increaseQualityForBackstageItemBasedOnSellIn(i);
-
             reduceSellInForNonSulfurusItem(i);
 
             if (items[i].sellIn < 0) {
                 increaseQualityNotMoreThan50ForAgedBrieOrBackstage(i);
 
-                if (isNotAgedBrieItem) {
-                    if (isNotBackstageItem) {
-                        reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
-                    }
-
-                    reduceQualityToZeroForBackStageItem(i);
-
-                }
+                reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
+                reduceQualityToZeroForBackStageItem(i);
             } else {
                 if (items[i].name.equals("Conjured Mana Cake")) {
                     reduceQualityByOneForNonAgedBrieBackstageSulfurusNotLessThanZero(i);
