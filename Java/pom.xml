@@ -34,6 +34,7 @@
 		<module>TirePressureMonitoringSystem</module>
 		<module>TurnTicketDispenser</module>
         <module>ParrotRefactoringKata</module>
-    </modules>
+		<module>GlidedRose</module>
+	</modules>
 
 </project>

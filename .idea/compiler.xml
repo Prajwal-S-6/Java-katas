@@ -9,6 +9,7 @@
         <module name="TirePressureMonitoringSystem" />
         <module name="ParrotRefactoringKata" />
         <module name="Leaderboard" />
+        <module name="GlidedRose" />
         <module name="TelemetrySystem" />
         <module name="TextConverter" />
         <module name="TurnTicketDispenser" />
