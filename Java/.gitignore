@@ -3,3 +3,8 @@ target/
 # IDEA
 .idea
 *.iml
+/TheatricalRefactoringKata/.gradle
+/TheatricalRefactoringKata/.gradle/buildOutputCleanup/cache.properties
+/TheatricalRefactoringKata/.gradle/8.10/checksums/checksums.lock
+/TheatricalRefactoringKata/build/reports/tests/test/packages/com.java.katas.html
+/TheatricalRefactoringKata/build

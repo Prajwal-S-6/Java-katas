@@ -35,6 +35,7 @@
 		<module>TurnTicketDispenser</module>
         <module>ParrotRefactoringKata</module>
 		<module>GlidedRose</module>
-	</modules>
+        <module>PensionContribution-TestDesign-Kata</module>
+    </modules>
 
 </project>
