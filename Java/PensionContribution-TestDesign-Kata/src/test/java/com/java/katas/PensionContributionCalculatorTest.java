@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Executable;
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 // TODO: Rename this class to something more appropriate and write some tests here
 public class PensionContributionCalculatorTest {
@@ -22,4 +21,19 @@ public class PensionContributionCalculatorTest {
         assertThrows(IllegalArgumentException.class,
                 () -> PensionContributionCalculator.calculatePensionContribution(BigDecimal.valueOf(-300), 5, new MidLevel(), FakePercentages.getStandardValues()));
     }
+
+    @Test
+    void shouldGetMediumTenureBonusWhenTenureIsMoreThanFiveYearsAndLessThan15Years() {
+        BigDecimal finalSalary = PensionContributionCalculator.calculatePensionContribution(
+                BigDecimal.valueOf(100),
+                10,
+                new MidLevel(),
+                FakePercentages.getStandardValues()
+        );
+
+        assertEquals(BigDecimal.valueOf(100.0), finalSalary);
+    }
+
+
+
 }
