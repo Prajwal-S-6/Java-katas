@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'info.solidsoft.pitest' version '1.9.0'
+}
+
+group = 'com.java.katas'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testImplementation 'com.approvaltests:approvaltests:23.0.1'
+    testImplementation 'org.assertj:assertj-core:3.25.3'
+}
+
+pitest {
+    targetClasses = ['katas.*']
+    junit5PluginVersion = '1.0.0'
+}
