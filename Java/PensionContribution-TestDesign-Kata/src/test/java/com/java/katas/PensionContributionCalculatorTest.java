@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PensionContributionCalculatorTest {
 
-
     @ParameterizedTest
     @ValueSource(doubles = {0, -1000})
     void shouldThrowIllegalArgumentExceptionWhenSalaryIsLessThanZero(double salary) {
+
         assertThrows(IllegalArgumentException.class,
                 () -> PensionContributionCalculator.calculatePensionContribution(BigDecimal.valueOf(salary), 5, new MidLevel(), FakePercentages.getStandardValues()));
     }
@@ -34,12 +34,8 @@ public class PensionContributionCalculatorTest {
 
     @Test
     void shouldGetMediumTenureBonusWhenTenureIsMoreThanFiveYearsAndLessThan15Years() {
-        BigDecimal finalSalary = PensionContributionCalculator.calculatePensionContribution(
-                BigDecimal.valueOf(1000),
-                10,
-                new MidLevel(),
-                FakePercentages.getStandardValues()
-        );
+        PensionContributionCalculator pensionContributionCalculator = new PensionContributionCalculator(new DataBaseAccessStub());
+        BigDecimal finalSalary = pensionContributionCalculator.calculatePensionContribution(2);
 
         assertEquals(BigDecimal.valueOf(100.0), finalSalary);
     }
@@ -108,14 +104,17 @@ public class PensionContributionCalculatorTest {
     }
 
 
+    class DataBaseAccessStub implements DatabaseAccess {
 
+        @Override
+        public Employee getEmployeeById(int employeeId) {
+            return new Employee(BigDecimal.valueOf(1000), 10, new MidLevel());
+        }
 
-
-
-
-
-
-
-
-
+        @Override
+        public double lookupValue(String namedConstant) {
+            return FakePercentages.getStandardValues().lookupValue(namedConstant);
+        }
+    }
 }
+
