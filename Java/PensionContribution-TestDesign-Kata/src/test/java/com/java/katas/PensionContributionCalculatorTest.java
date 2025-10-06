@@ -16,4 +16,10 @@ public class PensionContributionCalculatorTest {
         assertThrows(IllegalArgumentException.class,
                 () -> PensionContributionCalculator.calculatePensionContribution(BigDecimal.ZERO, 5, new MidLevel(), FakePercentages.getStandardValues()));
     }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSalaryIsLessThanZero() {
+        assertThrows(IllegalArgumentException.class,
+                () -> PensionContributionCalculator.calculatePensionContribution(BigDecimal.valueOf(-300), 5, new MidLevel(), FakePercentages.getStandardValues()));
+    }
 }

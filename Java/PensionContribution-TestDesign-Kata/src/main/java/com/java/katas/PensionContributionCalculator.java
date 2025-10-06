@@ -22,6 +22,9 @@ public class PensionContributionCalculator {
 
     public static BigDecimal calculatePensionContribution(BigDecimal annualSalary, int tenureYears, SeniorityLevel seniority, SalaryContributionPercentages percentages) {
         // BUG: Should throw an IllegalArgumentException if annualSalary is zero or below
+        if(annualSalary.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Invalid Salary. Salary cannot be less than or equal to zero");
+        }
         double tenureBonus = percentages.lookupValue(SalaryContributionPercentages.NO_TENURE_PERCENTAGE);
         // BUG: Should be a long tenure bonus for 15 years or more
         if (tenureYears >= 10) {
