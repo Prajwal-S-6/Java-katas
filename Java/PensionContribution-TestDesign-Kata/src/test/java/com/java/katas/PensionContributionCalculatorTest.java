@@ -5,20 +5,31 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.lang.reflect.Executable;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// TODO: Rename this class to something more appropriate and write some tests here
 public class PensionContributionCalculatorTest {
 
 
     @ParameterizedTest
-    @ValueSource(longs = {0, -1000})
-    void shouldThrowIllegalArgumentExceptionWhenSalaryIsLessThanZero(long salary) {
+    @ValueSource(doubles = {0, -1000})
+    void shouldThrowIllegalArgumentExceptionWhenSalaryIsLessThanZero(double salary) {
         assertThrows(IllegalArgumentException.class,
                 () -> PensionContributionCalculator.calculatePensionContribution(BigDecimal.valueOf(salary), 5, new MidLevel(), FakePercentages.getStandardValues()));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"1111.25 : 55.563", "1111.3 : 55.57", "1111.93 : 55.597"}, delimiter = ':', ignoreLeadingAndTrailingWhitespace = true)
+    void shouldProvidePensionContributionWithHalfRounded(double salary, double expectedContribution) {
+        BigDecimal finalSalary = PensionContributionCalculator.calculatePensionContribution(
+                BigDecimal.valueOf(salary),
+                2,
+                new JuniorEmployee(),
+                FakePercentages.getStandardValues()
+        );
+
+        assertEquals(BigDecimal.valueOf(expectedContribution), finalSalary);
     }
 
     @Test
@@ -58,8 +69,8 @@ public class PensionContributionCalculatorTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"15,110.0", "10,95.0", "4,75.0"})
-    void shouldGetCorrectPercentOfPensionContributionForLeaderShipTeamWithLongTenure(int tenure, double expectedSalary) {
+    @CsvSource(value = {"15,110.0","14,95.0", "5,95.0", "4,75.0"})
+    void shouldGetCorrectPercentOfPensionContributionForLeaderShipTeamWithVariousTenure(int tenure, double expectedContribution) {
         BigDecimal finalSalary = PensionContributionCalculator.calculatePensionContribution(
                 BigDecimal.valueOf(1000),
                 tenure,
@@ -67,8 +78,43 @@ public class PensionContributionCalculatorTest {
                 FakePercentages.getStandardValues()
         );
 
-        assertEquals(BigDecimal.valueOf(expectedSalary), finalSalary);
+        assertEquals(BigDecimal.valueOf(expectedContribution), finalSalary);
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {"15,85.0", "14,70.0", "5,70.0", "4,50.0"})
+    void shouldGetCorrectPercentOfPensionContributionForJuniorTeamWithVariousTenure(int tenure, double expectedContribution) {
+        BigDecimal finalSalary = PensionContributionCalculator.calculatePensionContribution(
+                BigDecimal.valueOf(1000),
+                tenure,
+                new JuniorEmployee(),
+                FakePercentages.getStandardValues()
+        );
+
+        assertEquals(BigDecimal.valueOf(expectedContribution), finalSalary);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"15:115.0","14:100.0", "5:100.0", "4:80.0"}, delimiter = ':')
+    void shouldGetCorrectPercentOfPensionContributionForMidLevelTeamWithVariousTenure(int tenure, double expectedContribution) {
+        BigDecimal finalSalary = PensionContributionCalculator.calculatePensionContribution(
+                BigDecimal.valueOf(1000),
+                tenure,
+                new MidLevel(),
+                FakePercentages.getStandardValues()
+        );
+
+        assertEquals(BigDecimal.valueOf(expectedContribution), finalSalary);
+    }
+
+
+
+
+
+
+
+
+
 
 
 
