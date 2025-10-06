@@ -1,6 +1,9 @@
 package com.java.katas;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.lang.reflect.Executable;
 import java.math.BigDecimal;
@@ -10,16 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 // TODO: Rename this class to something more appropriate and write some tests here
 public class PensionContributionCalculatorTest {
 
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenSalaryIsZero() {
-        assertThrows(IllegalArgumentException.class,
-                () -> PensionContributionCalculator.calculatePensionContribution(BigDecimal.ZERO, 5, new MidLevel(), FakePercentages.getStandardValues()));
-    }
 
-    @Test
-    void shouldThrowIllegalArgumentExceptionWhenSalaryIsLessThanZero() {
+    @ParameterizedTest
+    @ValueSource(longs = {0, -100})
+    void shouldThrowIllegalArgumentExceptionWhenSalaryIsLessThanZero(long salary) {
         assertThrows(IllegalArgumentException.class,
-                () -> PensionContributionCalculator.calculatePensionContribution(BigDecimal.valueOf(-300), 5, new MidLevel(), FakePercentages.getStandardValues()));
+                () -> PensionContributionCalculator.calculatePensionContribution(BigDecimal.valueOf(salary), 5, new MidLevel(), FakePercentages.getStandardValues()));
     }
 
     @Test
@@ -32,6 +31,19 @@ public class PensionContributionCalculatorTest {
         );
 
         assertEquals(BigDecimal.valueOf(100.0), finalSalary);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"15,110.0", "10,95.0", "4,75.0"})
+    void shouldGetCorrectPercentOfPensionContributionForLeaderShipTeamWithLongTenure(int tenure, double expectedSalary) {
+        BigDecimal finalSalary = PensionContributionCalculator.calculatePensionContribution(
+                BigDecimal.valueOf(100),
+                tenure,
+                new LeadershipTeam(),
+                FakePercentages.getStandardValues()
+        );
+
+        assertEquals(BigDecimal.valueOf(expectedSalary), finalSalary);
     }
 
 
