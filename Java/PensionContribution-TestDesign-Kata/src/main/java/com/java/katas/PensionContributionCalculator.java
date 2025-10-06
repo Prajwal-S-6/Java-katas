@@ -40,7 +40,7 @@ public class PensionContributionCalculator {
         // BUG: should divide by 100 (not 10) to get a percentage of annual salary
         return annualSalary
                 .multiply(BigDecimal.valueOf(totalContributionPercentage))
-                .divide(new BigDecimal("10"), RoundingMode.HALF_UP);
+                .divide(new BigDecimal("100"), RoundingMode.HALF_UP);
     }
 
 
