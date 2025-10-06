@@ -32,22 +32,44 @@ public class DiscountApplierTest {
 
     @Test
     void should_notify_twice_when_applying_discount_for_two_users_v1() {
-        // TODO: trigger the bug in DiscountApplier.applyV1() by implementing the Notifier interface
         discountApplier.applyV1(5, List.of(new User("user1", "user1@gmail.com"),
                 new User("user2", "user2@gmail.com")));
 
         verify(notifier, times(2)).notify(userArgumentCaptor.capture(), messageArgumentCaptor.capture());
         List<String> messages = messageArgumentCaptor.getAllValues();
         List<User> users = userArgumentCaptor.getAllValues();
-        assertAll(
-                () -> assertEquals(2, messages.size()),
-                () -> assertEquals(2, users.size())
-        );
+        assertThatUsersAndMessagesListIsOfCorrectSizeAndValues(messages, users);
     }
 
     @Test
     void should_notify_twice_when_applying_discount_for_two_users_v2() {
-        // TODO: trigger the bug in DiscountApplier.applyV2() by implementing Notifier interface
+        discountApplier.applyV2(5, List.of(new User("user1", "user1@gmail.com"),
+                new User("user2", "user2@gmail.com")));
+
+        verify(notifier, times(2)).notify(userArgumentCaptor.capture(), messageArgumentCaptor.capture());
+        List<String> messages = messageArgumentCaptor.getAllValues();
+        List<User> users = userArgumentCaptor.getAllValues();
+        assertThatUsersAndMessagesListIsOfCorrectSizeAndValues(messages, users);
+    }
+
+    private static void assertThatUsersAndMessagesListIsOfCorrectSizeAndValues(List<String> messages, List<User> users) {
+        assertAll(
+                () -> assertEquals(2, messages.size()),
+                () -> assertEquals(2, users.size())
+        );
+        assertAll(
+                () -> assertEquals("You've got a new discount of 5.000000", messages.get(0)),
+                () -> assertEquals("You've got a new discount of 5.000000", messages.get(1))
+        );
+
+        assertAll(
+                () -> assertEquals("user1", users.get(0).name()),
+                () -> assertEquals("user2", users.get(1).name())
+        );
+        assertAll(
+                () -> assertEquals("user1@gmail.com", users.get(0).email()),
+                () -> assertEquals("user2@gmail.com", users.get(1).email())
+        );
     }
 
 }

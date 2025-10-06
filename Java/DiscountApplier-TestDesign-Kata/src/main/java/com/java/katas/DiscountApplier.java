@@ -20,7 +20,7 @@ public class DiscountApplier {
   void applyV2(double discount, List<User> users) {
     for (int i = 0; i < users.size(); i++) {
       var message = String.format("You've got a new discount of %f", discount);
-      var user = users.get(0); // <- Bug, should be .get(i), not .get(0);
+      var user = users.get(i); // <- Bug, should be .get(i), not .get(0);
       notifier.notify(user, message);
     }
   }
