@@ -27,7 +27,7 @@ public class PensionContributionCalculator {
         }
         double tenureBonus = percentages.lookupValue(SalaryContributionPercentages.NO_TENURE_PERCENTAGE);
         // BUG: Should be a long tenure bonus for 15 years or more
-        if (tenureYears >= 10) {
+        if (tenureYears >= 15) {
             tenureBonus = percentages.lookupValue(SalaryContributionPercentages.LONG_TENURE_PERCENTAGE);
         } else if (tenureYears >= 5) {
             tenureBonus = percentages.lookupValue(SalaryContributionPercentages.MEDIUM_TENURE_PERCENTAGE);
