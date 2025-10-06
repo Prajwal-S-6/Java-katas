@@ -36,6 +36,7 @@
         <module>ParrotRefactoringKata</module>
 		<module>GlidedRose</module>
         <module>PensionContribution-TestDesign-Kata</module>
+        <module>DiscountApplier-TestDesign-Kata</module>
     </modules>
 
 </project>
