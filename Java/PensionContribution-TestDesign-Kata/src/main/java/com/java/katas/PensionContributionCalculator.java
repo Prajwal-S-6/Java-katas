@@ -21,23 +21,23 @@ public class PensionContributionCalculator {
     }
 
     public static BigDecimal calculatePensionContribution(BigDecimal annualSalary, int tenureYears, SeniorityLevel seniority, SalaryContributionPercentages percentages) {
-        // BUG: Should throw an IllegalArgumentException if annualSalary is zero or below
+        // BUG: Should throw an IllegalArgumentException if annualSalary is zero or below - fixed
         if(annualSalary.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Invalid Salary. Salary cannot be less than or equal to zero");
         }
         double tenureBonus = percentages.lookupValue(SalaryContributionPercentages.NO_TENURE_PERCENTAGE);
-        // BUG: Should be a long tenure bonus for 15 years or more
+        // BUG: Should be a long tenure bonus for 15 years or more - fixed
         if (tenureYears >= 15) {
             tenureBonus = percentages.lookupValue(SalaryContributionPercentages.LONG_TENURE_PERCENTAGE);
         } else if (tenureYears >= 5) {
             tenureBonus = percentages.lookupValue(SalaryContributionPercentages.MEDIUM_TENURE_PERCENTAGE);
         }
 
-        // BUG: one of the seniority bonuses is wrong - look in the relevant classes to find it
+        // BUG: one of the seniority bonuses is wrong - look in the relevant classes to find it - fixed
         double seniorityBonus = seniority.getPensionContributionBonus(percentages);
         double totalContributionPercentage = percentages.lookupValue(SalaryContributionPercentages.BASE_CONTRIBUTION_RATE) + tenureBonus + seniorityBonus;
 
-        // BUG: should divide by 100 (not 10) to get a percentage of annual salary
+        // BUG: should divide by 100 (not 10) to get a percentage of annual salary - fixed
         return annualSalary
                 .multiply(BigDecimal.valueOf(totalContributionPercentage))
                 .divide(new BigDecimal("100"), RoundingMode.HALF_UP);
